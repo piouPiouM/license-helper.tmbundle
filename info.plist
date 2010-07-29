@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>gz@cvbhcvbhz.se</string>
+	<key>contactName</key>
+	<string>Mehdi Kabab</string>
+	<key>description</key>
+	<string>Add a license block in your source files.</string>
+	<key>name</key>
+	<string>License Helper</string>
+	<key>ordering</key>
+	<array>
+		<string>0F5BC794-175B-4623-9224-86F70EE57C1E</string>
+		<string>353FDAB2-1BAA-4FF9-AA77-639A7525CC00</string>
+		<string>470DFE8D-D6A3-44C6-A301-2E4542E904B3</string>
+		<string>66F408C8-C8FE-4361-98F7-34811B95CD74</string>
+		<string>93580510-814F-4215-9C00-E6BC431BB948</string>
+		<string>50429E39-EC4F-48D9-BFB8-33E95E5D3DFA</string>
+	</array>
+	<key>uuid</key>
+	<string>499C3C25-FD54-4721-9A73-FC809BB9A5CA</string>
+</dict>
+</plist>

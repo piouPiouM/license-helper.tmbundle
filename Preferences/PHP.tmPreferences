@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>PHP</string>
+	<key>scope</key>
+	<string>source.php</string>
+	<key>settings</key>
+	<dict>
+		<key>shellVariables</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>TM_LICENSE_HELPER_HEADER</string>
+				<key>value</key>
+				<string>/*
+ # ***** BEGIN LICENSE BLOCK *****</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>TM_LICENSE_HELPER_FOOTER</string>
+				<key>value</key>
+				<string> # 
+ # ***** END LICENSE BLOCK ***** */</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>TM_LICENSE_HELPER_LINE</string>
+				<key>value</key>
+				<string> # </string>
+			</dict>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>50429E39-EC4F-48D9-BFB8-33E95E5D3DFA</string>
+</dict>
+</plist>

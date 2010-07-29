@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+require 'ftools'
+require 'yaml'
+require ENV["TM_SUPPORT_PATH"] + '/lib/ui'
+require ENV["TM_SUPPORT_PATH"] + '/lib/exit_codes'
+
+class InsertLicense
+
+  ConfigFile = ENV["TM_BUNDLE_SUPPORT"] + '/conf/license_helper.yml'
+  LicensesDir = ENV["TM_BUNDLE_SUPPORT"] + '/licenses'
+
+  def initialize()
+    unless File.exist?(ConfigFile)
+      File.copy ConfigFile + ".dist", ConfigFile
+    end
+
+    @box_entries = [ ]
+    @licenses = Hash.new
+    YAML.load_file(ConfigFile).each { |license|
+      file, label = license.to_a[0]
+      @licenses[label] = file
+      @box_entries &lt;&lt; label
+    }
+  end
+
+  def get_license name
+    header_path = "#{LicensesDir}/#{@licenses[name]}.license"
+    raise ArgumentError, "No license header exists for '#{name}'" unless File.exists? header_path
+
+    header_file = File.new(header_path)
+    header_file.read
+  end
+
+  def insert_header
+    license_name = ENV["TM_PROJECT_LICENSE"]
+    if license_name.nil? || !@licenses.has_key?(license_name)
+      license_name = TextMate::UI.request_item(
+        :items =&gt; @box_entries,
+        :title =&gt; 'License Helper',
+        :prompt =&gt; 'Select the type of license:'
+      )
+      TextMate.exit_discard if license_name.nil?
+    end
+
+    comment_head = ENV['TM_LICENSE_HELPER_HEADER'] || ENV['TM_COMMENT_START'].rstrip
+    comment_foot = ENV['TM_LICENSE_HELPER_FOOTER'] || (ENV['TM_COMMENT_END'] || ENV['TM_COMMENT_START']).rstrip
+
+    comment_foot = ENV['TM_COMMENT_START'] if comment_foot.nil?
+    comment_foot = ' */' if '*/' == comment_foot
+
+    comment_line = ENV['TM_LICENSE_HELPER_LINE'] || comment_head + ' '
+    comment_line = ' * ' if '/*' == comment_line.rstrip.squeeze
+
+    header = "%s\n%s\n%s" % [
+      comment_head,
+      get_license(license_name).gsub(/^/m, comment_line),
+      comment_foot
+    ]
+
+    print header
+  end
+end
+
+begin
+  license = InsertLicense.new()
+  license.insert_header
+rescue Exception =&gt; e
+  TextMate.exit_show_tool_tip e
+end</string>
+	<key>input</key>
+	<string>none</string>
+	<key>name</key>
+	<string>Insert License Header</string>
+	<key>output</key>
+	<string>insertAsSnippet</string>
+	<key>tabTrigger</key>
+	<string>license</string>
+	<key>uuid</key>
+	<string>0F5BC794-175B-4623-9224-86F70EE57C1E</string>
+</dict>
+</plist>

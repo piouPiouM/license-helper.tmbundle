@@ -1,0 +1,17 @@
+# Available licenses to list in the dialog box
+# Syntax:
+#   - filename(wihout extension): Label to display in the dialog
+---
+- mit:            MIT
+- lgpl:           LGPL - GNU Lesser General Public License
+- gpl3:           GPL 3 - GNU General Public License v3
+- gpl2:           GPL 2 - GNU General Public License v2
+- bsd_simplified: Simplified BSD
+- bsd_new:        New BSD
+- bsd_original:   Original BSD
+- agpl:           GNU Affero General Public License v3
+- apache:         Apache v2
+- cecill:         CeCILL (fr)
+- cecill_en:      CeCILL (en)
+- postgresql:     PostgreSQL
+- wtfpl:          Do What The Fuck You Want To Public License
