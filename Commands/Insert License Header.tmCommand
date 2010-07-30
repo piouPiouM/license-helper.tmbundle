@@ -50,8 +50,8 @@ class InsertLicense
       TextMate.exit_discard if license_name.nil?
     end
 
-    comment_head = ENV['TM_LICENSE_HELPER_HEADER'] || ENV['TM_COMMENT_START'].rstrip
-    comment_foot = ENV['TM_LICENSE_HELPER_FOOTER'] || (ENV['TM_COMMENT_END'] || ENV['TM_COMMENT_START']).rstrip
+    comment_head = ENV['TM_LICENSE_HELPER_HEADER'] || (ENV['TM_COMMENT_START'] || '').rstrip
+    comment_foot = ENV['TM_LICENSE_HELPER_FOOTER'] || (ENV['TM_COMMENT_END'] || ENV['TM_COMMENT_START'] || '').rstrip
 
     comment_foot = ENV['TM_COMMENT_START'] if comment_foot.nil?
     comment_foot = ' */' if '*/' == comment_foot
