@@ -44,12 +44,16 @@ class InsertLicense
     raise NotImplementedError, 'this language is not supported' if comment_head.empty?
 
     comment_foot = ENV['TM_LICENSE_HELPER_FOOTER'] || (ENV['TM_COMMENT_END'] || ENV['TM_COMMENT_START'] || '').rstrip
-
     comment_foot = ENV['TM_COMMENT_START'] if comment_foot.nil?
     comment_foot = ' */' if '*/' == comment_foot
 
     comment_line = ENV['TM_LICENSE_HELPER_LINE'] || comment_head + ' '
     comment_line = ' * ' if '/*' == comment_line.rstrip.squeeze
+
+    if ENV['TM_SCOPE'].match(/^.+\.(?:x|ht)ml/)
+      comment_line = '   - ' if ENV['TM_LICENSE_HELPER_LINE'].nil?
+      comment_foot = '   --&gt;' if ENV['TM_LICENSE_HELPER_FOOTER'].nil?
+    end
 
     license_name = ENV["TM_PROJECT_LICENSE"]
     if license_name.nil? || !@licenses.has_key?(license_name)
