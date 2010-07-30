@@ -40,6 +40,17 @@ class InsertLicense
   end
 
   def insert_header
+    comment_head = ENV['TM_LICENSE_HELPER_HEADER'] || (ENV['TM_COMMENT_START'] || '').rstrip
+    raise NotImplementedError, 'this language is not supported' if comment_head.empty?
+
+    comment_foot = ENV['TM_LICENSE_HELPER_FOOTER'] || (ENV['TM_COMMENT_END'] || ENV['TM_COMMENT_START'] || '').rstrip
+
+    comment_foot = ENV['TM_COMMENT_START'] if comment_foot.nil?
+    comment_foot = ' */' if '*/' == comment_foot
+
+    comment_line = ENV['TM_LICENSE_HELPER_LINE'] || comment_head + ' '
+    comment_line = ' * ' if '/*' == comment_line.rstrip.squeeze
+
     license_name = ENV["TM_PROJECT_LICENSE"]
     if license_name.nil? || !@licenses.has_key?(license_name)
       license_name = TextMate::UI.request_item(
@@ -49,15 +60,6 @@ class InsertLicense
       )
       TextMate.exit_discard if license_name.nil?
     end
-
-    comment_head = ENV['TM_LICENSE_HELPER_HEADER'] || (ENV['TM_COMMENT_START'] || '').rstrip
-    comment_foot = ENV['TM_LICENSE_HELPER_FOOTER'] || (ENV['TM_COMMENT_END'] || ENV['TM_COMMENT_START'] || '').rstrip
-
-    comment_foot = ENV['TM_COMMENT_START'] if comment_foot.nil?
-    comment_foot = ' */' if '*/' == comment_foot
-
-    comment_line = ENV['TM_LICENSE_HELPER_LINE'] || comment_head + ' '
-    comment_line = ' * ' if '/*' == comment_line.rstrip.squeeze
 
     header = "%s\n%s\n%s" % [
       comment_head,
@@ -72,8 +74,8 @@ end
 begin
   license = InsertLicense.new()
   license.insert_header
-rescue Exception =&gt; e
-  TextMate.exit_show_tool_tip e
+rescue ArgumentError, NotImplementedError =&gt; msg
+  TextMate.exit_show_tool_tip msg
 end</string>
 	<key>input</key>
 	<string>none</string>
